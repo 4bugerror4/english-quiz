@@ -31,5 +31,23 @@ public class NoteService {
 		
 		return noteEntity;
 	}
+	
+	@Transactional
+	public Note update(Note note) {
+		
+		Note noteEntity = noteRepository.findById(note.getId()).orElseThrow(() -> new IllegalArgumentException("해당 번호의 글은 존재하지 않습니다."));
+		
+		noteEntity.setSubject(note.getSubject());
+		noteEntity.setTitle(note.getTitle());
+		noteEntity.setContent(note.getContent());
+		
+		return noteEntity;
+	}
+	
+	@Transactional
+	public void delete(Long id) {
+		
+		noteRepository.deleteById(id);
+	}
 
 }
