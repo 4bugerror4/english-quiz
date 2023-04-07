@@ -39,6 +39,8 @@
 						Take a quiz to help you study easily the way you studied.
 						</p>
 						<button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#addProblemModal">문제 추가</button>
+						<button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#csvUploadModal">CSV 문제 추가</button>
+						<button type="button" class="btn btn-outline-light" th:onclick="location.href='/api/problem/csv/download'">CSV 다운로드</button>
 					</div>
 				</div>
 				<!-- 나만의 문제 풀기 -->
@@ -139,6 +141,30 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" th:onclick="addNote()">추가</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- CSV Upload Modal -->
+	<div class="modal fade" id="csvUploadModal" tabindex="-1" aria-labelledby="csvUploadModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="noteModalLabel">CSV 문제 업로드</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="csvUploadForm">
+						<div class="mb-3">
+							<label for="subject" class="col-form-label">CSV File:</label>
+							<input type="file" class="form-control" id="file" name="file">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" th:onclick="csvUpload()">추가</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 				</div>
 			</div>

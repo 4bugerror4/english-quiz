@@ -43,5 +43,11 @@ public class QuizController {
 		
 		return "random_quiz";
 	}
+	
+	@GetMapping("/multiple/quiz")
+	public String multiple() {
+		
+		return "multiple_quiz";
+	}
 
 }
