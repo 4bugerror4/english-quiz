@@ -28,5 +28,6 @@ public class Problem extends BaseTime {
 	private String problem;
 	private String answer;
 	private String hint;
+	private String category;
 
 }

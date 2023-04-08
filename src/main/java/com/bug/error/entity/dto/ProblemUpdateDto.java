@@ -15,6 +15,7 @@ public class ProblemUpdateDto {
 	private String problem;
 	private String answer;
 	private String hint;
+	private String category;
 	
 	public Problem toEntity() {
 		return Problem.builder()
@@ -22,6 +23,7 @@ public class ProblemUpdateDto {
 				.problem(problem)
 				.answer(answer)
 				.hint(hint)
+				.category(category)
 				.build();
 	}
 

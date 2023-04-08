@@ -33,13 +33,53 @@ public class QuizController {
 		return "quiz";
 	}
 	
+	@GetMapping("/word/quiz")
+	public String wordQuiz(Model model,
+			@PageableDefault(sort="id", size=1, direction = Direction.ASC) Pageable pageable) {
+		
+		Page<Problem> problems = problemService.getCategoryProblems(pageable, "word");
+		
+		model.addAttribute("currentPage", problems.getNumber() + 1);
+		model.addAttribute("totalPages", problems.getTotalPages());
+		model.addAttribute("problems", problems);
+		
+		return "word_quiz";
+	}
+	
+	@GetMapping("/sentence/quiz")
+	public String sentenceQuiz(Model model, @PageableDefault(sort="id", size=1, direction = Direction.ASC) Pageable pageable) {
+		
+		Page<Problem> problems = problemService.getCategoryProblems(pageable, "sentence");
+		
+		model.addAttribute("currentPage", problems.getNumber() + 1);
+		model.addAttribute("totalPages", problems.getTotalPages());
+		model.addAttribute("problems", problems);
+		
+		return "sentence_quiz";
+	}
+	
+	@GetMapping("/expression/quiz")
+	public String expressionQuiz(Model model, @PageableDefault(sort="id", size=1, direction = Direction.ASC) Pageable pageable) {
+		
+		Page<Problem> problems = problemService.getCategoryProblems(pageable, "expression");
+		
+		model.addAttribute("currentPage", problems.getNumber() + 1);
+		model.addAttribute("totalPages", problems.getTotalPages());
+		model.addAttribute("problems", problems);
+		
+		return "expression_quiz";
+	}
+	
 	@GetMapping("/random/quiz")
 	public String quiz(Model model) {
 		
 		List<Problem> problems = problemService.getProblems();
 		
-		final int RANDOM_NUMBER = (int) (Math.random() * problems.size());		
-		model.addAttribute("problem", problems.get(RANDOM_NUMBER));
+		final int RANDOM_NUMBER = (int) (Math.random() * problems.size());
+		final Long rNum = Long.valueOf(RANDOM_NUMBER);
+		Problem problem = problemService.getProblem(rNum);
+		
+		model.addAttribute("problem", problem);
 		
 		return "random_quiz";
 	}

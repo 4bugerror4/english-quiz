@@ -9,5 +9,6 @@ import com.bug.error.entity.Problem;
 public interface ProblemRepository extends JpaRepository<Problem, Long> {
 
 	Page<Problem> findByProblemContainingOrAnswerContaining(Pageable pageable, String problem, String answer);
+	Page<Problem> findByCategory(Pageable pageable, String category);
 	
 }

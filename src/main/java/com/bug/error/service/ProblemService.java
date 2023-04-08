@@ -47,6 +47,13 @@ public class ProblemService {
 	}
 	
 	@Transactional(readOnly = true)
+	public Page<Problem> getCategoryProblems(Pageable pageable, String category) {
+		Page<Problem> problems = problemRepository.findByCategory(pageable, category);
+		
+		return problems;
+	}
+	
+	@Transactional(readOnly = true)
 	public Page<Problem> getProblems(Pageable pageable, String searchText) {
 		Page<Problem> problems = problemRepository.findByProblemContainingOrAnswerContaining(pageable, searchText, searchText);
 		
@@ -76,6 +83,7 @@ public class ProblemService {
 		problemEntity.setProblem(problem.getProblem());
 		problemEntity.setAnswer(problem.getAnswer());
 		problemEntity.setHint(problem.getHint());
+		problemEntity.setCategory(problem.getCategory());
 		
 		return problemEntity;
 		
@@ -105,6 +113,7 @@ public class ProblemService {
 			problem.setProblem(record.getString("문제"));
 			problem.setAnswer(record.getString("정답"));
 			problem.setHint(record.getString("힌트"));
+			problem.setCategory(record.getString("분류"));
 			problemList.add(problem);
 		});
 		
@@ -129,9 +138,9 @@ public class ProblemService {
 	public String getCsvContent() {
 		
 		String data = 
-				"문제, 정답, 힌트\n"
-				+ "문제를 입력해주세요1,정답을 입력해주세요1,힌트를 입력해주세요1\n"
-				+ "문제를 입력해주세요2,정답을 입력해주세요2,힌트를 입력해주세요2";
+				"문제, 정답, 힌트, 분류\n"
+				+ "문제를 입력해주세요1,정답을 입력해주세요1,힌트를 입력해주세요1,분류(단어 문장 표현 중 선택)를 입력해주세요1\n"
+				+ "문제를 입력해주세요2,정답을 입력해주세요2,힌트를 입력해주세요2,분류(단어 문장 표현 중 선택)를 입력해주세요2";
 		
 		return data;
 	}

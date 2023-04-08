@@ -1,10 +1,13 @@
 function addProblem() {
 	
 	let data = {
+		category: $('#category').val(),
 		problem: $('#problem').val(),
 		answer: $('#answer').val(),
 		hint: $('#hint').val()
 	};
+	
+	console.log(data);
 	
 	$.ajax({
 		type: 'POST',

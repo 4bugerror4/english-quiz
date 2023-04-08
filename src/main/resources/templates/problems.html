@@ -30,17 +30,19 @@
 					<th class="col-1 text-center">번호</th>
 					<th class="col-3 text-center">문제</th>
 					<th class="col-3 text-center">정답</th>
-					<th class="col-3 text-center">힌트</th>
+					<th class="col-2 text-center">힌트</th>
+					<th class="col-1 text-center">분류</th>
 					<th class="col-1 text-center">수정</th>
 					<th class="col-1 text-center">삭제</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr class="row" th:each="problem : ${problems}">
-					<th class="col-1 text-center" th:text="${problem.id}">1</th>
+					<th class="col-1 text-center" th:text="${problem.id}">단어</th>
 					<td class="col-3 text-center" th:text="${problem.problem}">problem</td>
 					<td class="col-3 text-center" th:text="${problem.answer}">answer</td>
-					<td class="col-3 text-center" th:text="${problem.hint}">hint</td>
+					<td class="col-2 text-center" th:text="${problem.hint}">hint</td>
+					<td class="col-1 text-center" th:text="${problem.category}">hint</td>
 					<td class="col-1 text-center"><button type="button" class="badge text-bg-warning" data-bs-toggle="modal" data-bs-target="#updateProblemModal" th:data-id="|${problem.id}|" th:data-problem="|${problem.problem}|" th:data-answer="|${problem.answer}|" th:data-hint="|${problem.hint}|">수정</button></td>
 					<td class="col-1 text-center"><button type="button" class="badge text-bg-danger" th:pid="${problem.id}" th:onclick="deleteProblem(this.getAttribute('pid'))">삭제</button></td>
 				</tr>
