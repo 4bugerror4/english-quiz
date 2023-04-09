@@ -14,19 +14,21 @@
 		<form>
 			<a th:href="@{/}"><img class="mb-4" src="https://getbootstrap.com/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"></a>
 			<h1 class="h3 mb-3 fw-normal">
-				(<span id="currentPage"></span>/<span>10</span>)
+				객관식 랜덤 문제
 			</h1>
-			<input type="hidden" id="id">
-
+			<input type="hidden" id="id" th:value="${problem.id}">
 			<div class="form-floating">
-				<input type="text" class="form-control" id="problem" readonly>
-				<label for="problem">문제</label>
+				<input type="text" class="form-control text-center pt-0 pb-0" id="multi_problem" th:value="${problem.problem}" readonly>
 			</div>
+		</form>
+
+		<form>
 			<div class="form-floating">
-				
+				<div class="mb-2" th:each="answer : ${answers}">
+					<button type="button" class="w-100 btn btn-outline-primary" th:answer="${answer.answer}" th:onclick="multipleQuizResult(this.getAttribute('answer'))">[[${answer.answer}]]</button>
+				</div>
 			</div>
 
-			<button class="w-100 btn btn-lg btn-primary" type="button">확인</button>
 		</form>
 	</main>
 

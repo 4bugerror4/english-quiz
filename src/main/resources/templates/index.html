@@ -26,6 +26,7 @@
 					<h1 class="display-5 fw-bold">나만의 영어 퀴즈 사이트</h1>
 					<p class="col-md-8 fs-4">우리 모두 영어를 잘 할 수 있는 그날 까지 공부 한것을 매번 노트에 적지 말고 퀴즈로 만들어서 사용해 보세요.<br /><hr />
 					Until the day we can all speak English well, sometimes it's better to use it as a quiz rather than writing it down when studying.</p>
+					<a th:href="@{/translate}" class="btn btn-outline-secondary">번역기</a>
 				</div>
 			</div>
 
@@ -188,14 +189,15 @@
 				</div>
 				<div class="modal-body">
 					<div>
-						<a class="btn btn-outline-primary" th:href="@{/quiz}">전체 문제 풀기</a>
-						<a class="btn btn-outline-primary" th:href="@{/random/quiz}">랜덤 문제 풀기</a>
+						<a class="btn btn-outline-primary" th:href="@{/quiz}">전체 문제</a>
+						<a class="btn btn-outline-primary" th:href="@{/random/quiz}">랜덤 문제</a>
+						<a class="btn btn-outline-primary" th:href="@{/multiple/quiz}">랜덤 객관식</a>
 					</div>
 					<hr />
 					<div class="my-2">
-					<a class="btn btn-outline-primary" th:href="@{/word/quiz}">단어 문제 풀기</a>
-						<a class="btn btn-outline-primary" th:href="@{/sentence/quiz}">문장 문제 풀기</a>
-						<a class="btn btn-outline-primary" th:href="@{/expression/quiz}">표현 문제 풀기</a>
+					<a class="btn btn-outline-primary" th:href="@{/word/quiz}">단어 문제</a>
+						<a class="btn btn-outline-primary" th:href="@{/sentence/quiz}">문장 문제</a>
+						<a class="btn btn-outline-primary" th:href="@{/expression/quiz}">표현 문제</a>
 					</div>
 				</div>
 			</div>

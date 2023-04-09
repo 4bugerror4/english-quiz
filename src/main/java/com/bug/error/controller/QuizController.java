@@ -1,6 +1,8 @@
 package com.bug.error.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -77,6 +79,7 @@ public class QuizController {
 		
 		final int RANDOM_NUMBER = (int) (Math.random() * problems.size());
 		final Long rNum = Long.valueOf(RANDOM_NUMBER);
+		
 		Problem problem = problemService.getProblem(rNum);
 		
 		model.addAttribute("problem", problem);
@@ -85,7 +88,17 @@ public class QuizController {
 	}
 	
 	@GetMapping("/multiple/quiz")
-	public String multiple() {
+	public String multiple(Model model) {
+		
+		Set<Problem> problems = problemService.getMultipleChoice();
+		List<Problem> problemList = new ArrayList<>(problems);
+		
+		// 문제 추출
+		final int RANDOM_NUMBER = (int) (Math.random() * problemList.size());
+		Problem problem = problemList.get(RANDOM_NUMBER);
+		
+		model.addAttribute("problem", problem); // 문제 1개
+		model.addAttribute("answers", problemList); // 정답 4개
 		
 		return "multiple_quiz";
 	}

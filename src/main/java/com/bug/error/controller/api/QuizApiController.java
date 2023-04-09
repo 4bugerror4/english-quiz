@@ -32,7 +32,6 @@ public class QuizApiController {
 			return new ResponseEntity<>(new CMRespDto<>(-1, "틀렸습니다.", null), HttpStatus.OK);
 		}
 		
-		
 	}
 
 }

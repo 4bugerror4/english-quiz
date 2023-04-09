@@ -7,9 +7,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MultipleChoiceResultDto {
+public class TranslateDto {
 	
-	private Long id;
-	private String answer;
+	private int sourceAndTargetNumber;
+	private String source;
 
 }
