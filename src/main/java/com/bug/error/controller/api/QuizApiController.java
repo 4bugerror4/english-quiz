@@ -27,9 +27,9 @@ public class QuizApiController {
 		Problem problem = problemService.getProblem(dto.getId());
 		
 		if (problem.getAnswer().equalsIgnoreCase(dto.getAnswer())) {
-			return new ResponseEntity<>(new CMRespDto<>(1, "정답 입니다!", null), HttpStatus.OK);
+			return new ResponseEntity<>(new CMRespDto<>(1, "정답 입니다!", problem), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(new CMRespDto<>(-1, "틀렸습니다.", null), HttpStatus.OK);
+			return new ResponseEntity<>(new CMRespDto<>(-1, "틀렸습니다.", problem), HttpStatus.OK);
 		}
 		
 	}
