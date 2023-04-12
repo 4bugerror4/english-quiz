@@ -67,6 +67,14 @@
 							</div>
 							<form>
 								<div class="mb-3">
+									<label for="category" class="col-form-label">분류:</label>
+									<select class="form-select form-control" th:id="|category${note.id}|" th:name="|category${note.id}|" aria-label="Default select example" autofocus>
+										<option value="word">단어</option>
+										<option value="sentence">문장</option>
+										<option value="expression">표현</option>
+									</select>
+								</div>
+								<div class="mb-3">
 									<label for="problem" class="col-form-label">문제:</label>
 									<input type="text" class="form-control" th:id="|problem${note.id}|" th:name="|problem${note.id}|" autofocus>
 								</div>
@@ -114,11 +122,15 @@
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
 				<li class="page-item" th:classappend="${1 == notes.pageable.pageNumber + 1} ? 'disabled'"><a class="page-link"
+					th:href="@{/notes/(page=0, searchText=${param.searchText})}">&lsaquo;&lsaquo;</a></li>
+				<li class="page-item" th:classappend="${1 == notes.pageable.pageNumber + 1} ? 'disabled'"><a class="page-link"
 					th:href="@{/notes/(page=${notes.pageable.pageNumber - 1}, searchText=${param.searchText})}">&lsaquo;</a></li>
 				<li class="page-item" th:classappend="${i == notes.pageable.pageNumber + 1} ? 'disabled'" th:each="i : ${#numbers.sequence(startPage, endPage)}"><a class="page-link"
 					th:href="@{/notes/(page=${i - 1}, searchText=${param.searchText})}" th:text="${i}">1</a></li>
 				<li class="page-item" th:classappend="${notes.totalPages == notes.pageable.pageNumber + 1} ? 'disabled'"><a class="page-link"
 					th:href="@{/notes/(page=${notes.pageable.pageNumber + 1}, searchText=${param.searchText})}">&rsaquo;</a></li>
+				<li class="page-item" th:classappend="${notes.totalPages == notes.pageable.pageNumber + 1} ? 'disabled'"><a class="page-link"
+				th:href="@{/notes/(page=${notes.totalPages - 1}, searchText=${param.searchText})}">&rsaquo;&rsaquo;</a></li>
 			</ul>
 		</nav>
 

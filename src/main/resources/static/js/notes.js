@@ -28,7 +28,7 @@ function getHint(nId) {
 		hint = document.getSelection().toString();
 	}
 	
-	$('input[name=hint'+ nId +']').attr('value',hint);
+	console.log($('input[name=hint'+ nId +']').attr('value',hint));
 };
 
 function addProblem(nId) {
@@ -36,8 +36,11 @@ function addProblem(nId) {
 	let data = {
 		problem: $('#problem' + nId).val(),
 		answer: $('#answer' + nId).val(),
-		hint: $('#hint' + nId).val()
+		hint: $('#hint' + nId).val(),
+		category: $('#category' + nId).val()
 	};
+	
+	console.log(data);
 	
 	$.ajax({
 		type: 'POST',
@@ -56,7 +59,7 @@ function addProblem(nId) {
 		
 		error: function(e) {
 			console.log(e);
-			alert(JSON.stringify(e.responseJSON.data), '\t');
+			alert(JSON.stringify(e.responseJSON.msg), '\t');
 		}
 	});
 };
@@ -87,7 +90,7 @@ function updateNote(nId) {
 		
 		error: function(e) {
 			console.log(e);
-			alert(JSON.stringify(e.responseJSON.data), '\t');
+			alert(JSON.stringify(e.responseJSON.msg), '\t');
 		}
 	});
 	
@@ -123,16 +126,4 @@ function deleteNote(nId) {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

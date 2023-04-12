@@ -4,7 +4,8 @@ function updateProblem() {
 		id: $('#id').val(),
 		problem: $('#problem').val(),
 		answer: $('#answer').val(),
-		hint: $('#hint').val()
+		hint: $('#hint').val(),
+		category: $('#category').val()
 	};
 	
 	$.ajax({
@@ -22,7 +23,7 @@ function updateProblem() {
 		
 		error: function(e) {
 			console.log("결과", e),
-			alert(JSON.stringify(e.responseJSON.data), '\t');
+			alert(JSON.stringify(e.responseJSON.msg), '\t');
 		}
 	});
 	
@@ -36,11 +37,13 @@ $(document).ready(function() {
 		let problem = button.data('problem');
 		let answer = button.data('answer'); // Button th:data-title
 		let hint = button.data('hint'); // Button th:data-content
+		let category = button.data('category'); // Button th:data-content
 		let modal = $(this);
 		modal.find('.modal-body #id').val(id);
 		modal.find('.modal-body #problem').val(problem);
 		modal.find('.modal-body #answer').val(answer);
 		modal.find('.modal-body #hint').val(hint);
+		modal.find('.modal-body #category').val(category);
 	});
 });
 

@@ -1,7 +1,10 @@
 package com.bug.error.controller.api;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,7 +29,7 @@ public class NoteApiController {
 	private final NoteService noteService;
 	
 	@PostMapping("/note/add")
-	public ResponseEntity<?> add(@RequestBody NoteAddDto dto) {
+	public ResponseEntity<?> add(@Valid @RequestBody NoteAddDto dto, BindingResult bindingResult) {
 		
 		Note note = noteService.add(dto.toEntity());
 		
@@ -35,7 +38,7 @@ public class NoteApiController {
 	}
 	
 	@PutMapping("/note/update")
-	public ResponseEntity<?> update(@RequestBody NoteUpdateDto dto) {
+	public ResponseEntity<?> update(@Valid @RequestBody NoteUpdateDto dto, BindingResult bindingResult) {
 		
 		Note note = noteService.update(dto.toEntity());
 		

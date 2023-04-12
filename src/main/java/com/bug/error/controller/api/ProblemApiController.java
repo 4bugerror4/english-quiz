@@ -1,9 +1,7 @@
 package com.bug.error.controller.api;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -12,7 +10,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bug.error.entity.Problem;
 import com.bug.error.entity.dto.CMRespDto;
-import com.bug.error.entity.dto.MultipleChoiceResultDto;
 import com.bug.error.entity.dto.ProblemAddDto;
 import com.bug.error.entity.dto.ProblemDeleteDto;
 import com.bug.error.entity.dto.ProblemUpdateDto;
@@ -43,24 +39,14 @@ public class ProblemApiController {
 	@PostMapping("/problem/add")
 	public ResponseEntity<?> add(@Valid @RequestBody ProblemAddDto dto, BindingResult bindingResult) {
 		
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errprMap = new HashMap<>();
-			
-			for (FieldError error : bindingResult.getFieldErrors()) {
-				errprMap.put(error.getField(), error.getDefaultMessage());
-			}
-			
-			throw new RuntimeException("유효성 검사 실패");
-		} else {
-			Problem problem = problemService.add(dto.toEntity());
-			
-			return new ResponseEntity<>(new CMRespDto<>(1, "문제 추가 완료", problem), HttpStatus.OK);
-		}
+		Problem problem = problemService.add(dto.toEntity());
+		
+		return new ResponseEntity<>(new CMRespDto<>(1, "문제 추가 완료", problem), HttpStatus.OK);
 		
 	}
 	
 	@PutMapping("/problem/update")
-	public ResponseEntity<?> update(@RequestBody ProblemUpdateDto dto) {
+	public ResponseEntity<?> update(@Valid @RequestBody ProblemUpdateDto dto, BindingResult bindingResult) {
 		
 		Problem problem = problemService.update(dto.toEntity());
 	
@@ -89,6 +75,12 @@ public class ProblemApiController {
 	@PostMapping("/problem/csv/upload")
 	public ResponseEntity<?> csvUpload(@RequestParam("file") MultipartFile file) throws IOException {
 		
+		if (file.isEmpty()) {
+			throw new RuntimeException("파일이 존재하지 않습니다.");
+		} else if (!file.getContentType().equals("text/csv")) {
+			throw new RuntimeException("파일이 형식이 틀렸습니다. CSV 파일을 등록해주세요");
+		}
+		
 		List<Problem> problemList = problemService.csvUpload(file);
 		
 		return new ResponseEntity<>(new CMRespDto<>(1, "CSV 문제 추가 완료", problemList), HttpStatus.OK);
@@ -99,15 +91,6 @@ public class ProblemApiController {
 	public Set<Problem> multipleChoice() {
 		
 		return problemService.getMultipleChoice();
-	}
-	
-	// 사지선다 문제 정답
-	@PostMapping("/problem/quzi/mutipleChoiceResult")
-	public ResponseEntity<?> mutipleChoiceResult(@RequestBody MultipleChoiceResultDto dto) {
-		
-		
-		
-		return new ResponseEntity<>(new CMRespDto<>(1, "정답 입니다.", null), HttpStatus.OK);
 	}
 
 }

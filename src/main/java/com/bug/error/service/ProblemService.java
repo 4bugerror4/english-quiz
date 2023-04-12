@@ -139,8 +139,10 @@ public class ProblemService {
 		
 		String data = 
 				"문제, 정답, 힌트, 분류\n"
-				+ "문제를 입력해주세요1,정답을 입력해주세요1,힌트를 입력해주세요1,분류(단어 문장 표현 중 선택)를 입력해주세요1\n"
-				+ "문제를 입력해주세요2,정답을 입력해주세요2,힌트를 입력해주세요2,분류(단어 문장 표현 중 선택)를 입력해주세요2";
+				+ "문제를 입력해주세요,정답을 입력해주세요,힌트를 입력해주세요,분류(word sentence expression 3개 분류 중 하나만 적어 주시기 바랍니다.)를 입력해주세요\n"
+				+ "예시,example,힌트있어도되고 없도 됨,word\n"
+				+ "뭐 해?,what up?,,sentence\n"
+				+ "내 옆에 앉아,sit next to me,문법 없이 단어만으로 작성,expression\n";
 		
 		return data;
 	}
@@ -152,9 +154,15 @@ public class ProblemService {
 		List<Problem> problems = problemRepository.findAll();
 		Set<Problem> multipleChoiceProblems = new HashSet<>();
 		
-		while (multipleChoiceProblems.size() != 4) {
-			int randomNumber = (int) (Math.random() * problems.size());
-			multipleChoiceProblems.add(problems.get(randomNumber));
+		System.out.println("호출");
+		
+		if (multipleChoiceProblems.size() < 4) {
+			throw new IndexOutOfBoundsException("최소 문제가 4개 이상 되어야 합니다. 문제를 추가해주세요");
+		} else {
+			while (multipleChoiceProblems.size() != 4) {
+				int randomNumber = (int) (Math.random() * problems.size());
+				multipleChoiceProblems.add(problems.get(randomNumber));
+			}
 		}
 		
 		return multipleChoiceProblems;

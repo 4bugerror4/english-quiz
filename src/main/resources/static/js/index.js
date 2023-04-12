@@ -7,8 +7,6 @@ function addProblem() {
 		hint: $('#hint').val()
 	};
 	
-	console.log(data);
-	
 	$.ajax({
 		type: 'POST',
 		url: `/api/problem/add`,
@@ -23,8 +21,8 @@ function addProblem() {
 		},
 		
 		error: function(e) {
-			console.log(e);
-			alert(JSON.stringify(e.responseJSON.data), '\t');
+			console.log("결과", e);
+			alert(JSON.stringify(e.responseJSON.msg), '\t');
 		}
 	});
 };
@@ -53,8 +51,8 @@ function addNote() {
 		},
 		
 		error: function(e) {
-			console.log(e);
-			alert(JSON.stringify(e.responseJSON.data), '\t');
+			console.log("결과", e);
+			alert(JSON.stringify(e.responseJSON.msg), '\t');
 		}
 	});
 };
@@ -81,8 +79,8 @@ function csvUpload() {
 			location.href='/';
 		},
 		error: function(error) {
-			console.log('실패', error);
-			alert(JSON.stringify(error.responseJSON.data, '\t'));
+			console.log('결과', error);
+			alert(JSON.stringify(error.responseJSON.msg, '\t'));
 		}
 	});
  

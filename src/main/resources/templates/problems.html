@@ -43,7 +43,7 @@
 					<td class="col-3 text-center" th:text="${problem.answer}">answer</td>
 					<td class="col-2 text-center" th:text="${problem.hint}">hint</td>
 					<td class="col-1 text-center" th:text="${problem.category}">hint</td>
-					<td class="col-1 text-center"><button type="button" class="badge text-bg-warning" data-bs-toggle="modal" data-bs-target="#updateProblemModal" th:data-id="|${problem.id}|" th:data-problem="|${problem.problem}|" th:data-answer="|${problem.answer}|" th:data-hint="|${problem.hint}|">수정</button></td>
+					<td class="col-1 text-center"><button type="button" class="badge text-bg-warning" data-bs-toggle="modal" data-bs-target="#updateProblemModal" th:data-id="|${problem.id}|" th:data-problem="|${problem.problem}|" th:data-answer="|${problem.answer}|" th:data-hint="|${problem.hint}|" th:data-category="|${problem.category}|">수정</button></td>
 					<td class="col-1 text-center"><button type="button" class="badge text-bg-danger" th:pid="${problem.id}" th:onclick="deleteProblem(this.getAttribute('pid'))">삭제</button></td>
 				</tr>
 			</tbody>
@@ -53,6 +53,9 @@
 		<!-- 페이지 -->
 		<div aria-label="Page navigation example" class="my-4">
 		    <ul class="pagination justify-content-center">
+		    	<li class="page-item" th:classappend="${1 == problems.pageable.pageNumber + 1} ? 'disabled'">
+		        	<a class="page-link" th:href="@{/problems(page=0, searchText=${param.searchText})}">&lsaquo;&lsaquo;</a>
+		        </li>
 		        <li class="page-item" th:classappend="${1 == problems.pageable.pageNumber + 1} ? 'disabled'">
 		        	<a class="page-link" th:href="@{/problems(page=${problems.pageable.pageNumber - 1}, searchText=${param.searchText})}">&lsaquo;</a>
 		        </li>
@@ -61,6 +64,9 @@
 	        	</li>
 		        <li class="page-item" th:classappend="${problems.totalPages == problems.pageable.pageNumber + 1} ? 'disabled'">
 		        	<a class="page-link" th:href="@{/problems(page=${problems.pageable.pageNumber + 1}, searchText=${param.searchText})}">&rsaquo;</a>
+		        </li>
+		        <li class="page-item" th:classappend="${problems.totalPages == problems.pageable.pageNumber + 1} ? 'disabled'">
+		        	<a class="page-link" th:href="@{/problems(page=${problems.totalPages - 1}, searchText=${param.searchText})}">&rsaquo;&rsaquo;</a>
 		        </li>
 		    </ul>
 		</div>
@@ -78,6 +84,14 @@
 				<div class="modal-body">
 					<form>
 						<input type="hidden" id="id" th:value="id" />
+						<div class="mb-3">
+							<label for="category" class="col-form-label">분류:</label>
+							<select class="form-select form-control" id="category" aria-label="Default select example" autofocus>
+								<option value="word">단어</option>
+								<option value="sentence">문장</option>
+								<option value="expression">표현</option>
+							</select>
+						</div>
 						<div class="mb-3">
 							<label for="problem" class="col-form-label">문제:</label>
 							<input type="text" class="form-control" id="problem">

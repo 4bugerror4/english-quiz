@@ -1,7 +1,8 @@
 package com.bug.error.entity.dto;
 
+import javax.validation.constraints.NotBlank;
+
 import com.bug.error.entity.Problem;
-import com.sun.istack.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,14 +13,15 @@ import lombok.ToString;
 @ToString
 public class ProblemAddDto {
 	
-	@NotNull
+	@NotBlank
 	private String problem;
 	
-	@NotNull
+	@NotBlank
 	private String answer;
 	
 	private String hint;
 	
+	@NotBlank
 	private String category;
 	
 	public Problem toEntity() {
