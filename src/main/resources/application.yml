@@ -9,14 +9,14 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/quiz?serverTimezone=Asia/Seoul
-    username: root
-    password: root
+    url: jdbc:mysql://database-1.csi3cmmfmbwr.ap-northeast-2.rds.amazonaws.com/quiz?serverTimezone=Asia/Seoul
+    username: admin
+    password: rootroot
     
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
