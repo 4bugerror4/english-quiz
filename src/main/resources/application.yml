@@ -14,6 +14,8 @@ spring:
     password: rootroot
     
   jpa:
+    database: mysql   # 추가 해준 부분
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect # 추가 해준 부분
     open-in-view: true
     hibernate:
       ddl-auto: create
