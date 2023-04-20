@@ -47,7 +47,7 @@ function addNote() {
 		success: function(res) {
 			console.log("성공", res);
 			alert(res.msg);
-			location.href=`/`;
+			location.href=`/notes`;
 		},
 		
 		error: function(e) {

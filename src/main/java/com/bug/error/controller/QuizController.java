@@ -27,6 +27,8 @@ public class QuizController {
 	public String quiz(Model model, @PageableDefault(sort="id", size=1, direction = Direction.ASC) Pageable pageable) {
 		
 		Page<Problem> problems = problemService.getProblems(pageable);
+
+		problemCheck(problems);
 		
 		model.addAttribute("currentPage", problems.getNumber() + 1);
 		model.addAttribute("totalPages", problems.getTotalPages());
@@ -41,6 +43,8 @@ public class QuizController {
 		
 		Page<Problem> problems = problemService.getCategoryProblems(pageable, "word");
 		
+		problemCheck(problems);
+		
 		model.addAttribute("currentPage", problems.getNumber() + 1);
 		model.addAttribute("totalPages", problems.getTotalPages());
 		model.addAttribute("problems", problems);
@@ -53,6 +57,8 @@ public class QuizController {
 		
 		Page<Problem> problems = problemService.getCategoryProblems(pageable, "sentence");
 		
+		problemCheck(problems);
+		
 		model.addAttribute("currentPage", problems.getNumber() + 1);
 		model.addAttribute("totalPages", problems.getTotalPages());
 		model.addAttribute("problems", problems);
@@ -64,6 +70,8 @@ public class QuizController {
 	public String expressionQuiz(Model model, @PageableDefault(sort="id", size=1, direction = Direction.ASC) Pageable pageable) {
 		
 		Page<Problem> problems = problemService.getCategoryProblems(pageable, "expression");
+		
+		problemCheck(problems);
 		
 		model.addAttribute("currentPage", problems.getNumber() + 1);
 		model.addAttribute("totalPages", problems.getTotalPages());
@@ -80,7 +88,7 @@ public class QuizController {
 		final int RANDOM_NUMBER = (int) (Math.random() * problems.size());
 		final Long rNum = Long.valueOf(RANDOM_NUMBER);
 		
-		Problem problem = problemService.getProblem(rNum);
+		Problem problem = problemService.getProblem(rNum + 1);
 		
 		model.addAttribute("problem", problem);
 		
@@ -98,9 +106,16 @@ public class QuizController {
 		Problem problem = problemList.get(RANDOM_NUMBER);
 		
 		model.addAttribute("problem", problem); // 문제 1개
-		model.addAttribute("answers", problemList); // 정답 4개
+		model.addAttribute("answers", problemList); // 보기 4개
 		
 		return "multiple_quiz";
+	}
+	
+	private static void problemCheck(Page<Problem> problems) {
+		
+		if (problems.getTotalElements() == 0) {
+			throw new IllegalArgumentException("문제가 존재하지 않습니다. 문제를 추가해주시기 바랍니다.");
+		}
 	}
 
 }

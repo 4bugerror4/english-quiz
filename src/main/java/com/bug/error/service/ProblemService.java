@@ -154,9 +154,7 @@ public class ProblemService {
 		List<Problem> problems = problemRepository.findAll();
 		Set<Problem> multipleChoiceProblems = new HashSet<>();
 		
-		System.out.println("호출");
-		
-		if (multipleChoiceProblems.size() < 4) {
+		if (problems.size() < 4) {
 			throw new IndexOutOfBoundsException("최소 문제가 4개 이상 되어야 합니다. 문제를 추가해주세요");
 		} else {
 			while (multipleChoiceProblems.size() != 4) {
